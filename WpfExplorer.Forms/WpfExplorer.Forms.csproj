@@ -15,4 +15,8 @@
     <ProjectReference Include="..\WpfExplorer.Support\WpfExplorer.Support.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Themes\Units\" />
+  </ItemGroup>
+
 </Project>

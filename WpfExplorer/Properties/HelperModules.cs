@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Prism.Ioc;
+﻿using Prism.Ioc;
 using Prism.Modularity;
+using WpfExplorer.Support.Local.Helpers;
 
 namespace WpfExplorer.Properties
 {
@@ -12,6 +8,8 @@ namespace WpfExplorer.Properties
     {
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterSingleton<DirectoryManager>();
+            containerRegistry.RegisterSingleton<FileService>();
         }
 
         public void OnInitialized(IContainerProvider containerProvider)
