@@ -10,5 +10,10 @@ namespace WpfExplorer.Main.UI.Units
             DefaultStyleKeyProperty.OverrideMetadata(typeof(FolderTreeItem), 
                 new FrameworkPropertyMetadata(typeof(FolderTreeItem)));
         }
+
+        protected override DependencyObject GetContainerForItemOverride()
+        {
+            return new FolderTreeItem();
+        }
     }
 }
