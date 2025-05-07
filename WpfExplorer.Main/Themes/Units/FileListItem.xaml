@@ -49,7 +49,24 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" Value="#3256a7"/>
                         </Trigger>
-                        <DataTrigger Binding=""></DataTrigger>
+                        <DataTrigger Binding="{Binding IconType}" Value="Folder">
+                            <Setter TargetName="icon" Property="Fill" Value="#FFEFB13A"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IconType}" Value="FileImage">
+                            <Setter TargetName="icon" Property="Fill" Value="#FFFE9C84"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IconType}" Value="FileZip">
+                            <Setter TargetName="icon" Property="Fill" Value="#FFFED484"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IconType}" Value="FileCheck">
+                            <Setter TargetName="icon" Property="Fill" Value="#FF44A7FF"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IconType}" Value="FilePDF">
+                            <Setter TargetName="icon" Property="Fill" Value="#FFF85E7C"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IconType}" Value="FileWord">
+                            <Setter TargetName="icon" Property="Fill" Value="#FF16E2FF"/>
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

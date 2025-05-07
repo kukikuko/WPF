@@ -3,34 +3,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/WpfExplorer.Main;component/Themes/Units/ExpandButton.xaml"/>
+        <ResourceDictionary Source="/WpfExplorer.Main;component/Themes/Units/FileListItem.xaml"/>
+        <ResourceDictionary Source="/WpfExplorer.Main;component/Themes/Units/FileListBox.xaml"/>
         <ResourceDictionary Source="/WpfExplorer.Main;component/Themes/Units/FolderTreeItem.xaml"/>
         <ResourceDictionary Source="/WpfExplorer.Main;component/Themes/Units/FolderTreeView.xaml"/>
         <ResourceDictionary Source="/WpfExplorer.Main;component/Themes/Views/MainContent.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-
-    <Style TargetType="{x:Type local:FilelistBox}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:FilelistBox}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style TargetType="{x:Type local:FileListItem}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:FileListItem}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
 </ResourceDictionary>

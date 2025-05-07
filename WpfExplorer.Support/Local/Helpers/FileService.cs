@@ -9,6 +9,7 @@ namespace WpfExplorer.Support.Local.Helpers
     public class FileService
     {
         private readonly DirectoryManager _directoryManager;
+        private readonly NavigatorService _navigatorService;
 
         public FileService(DirectoryManager directoryManager)
         {
