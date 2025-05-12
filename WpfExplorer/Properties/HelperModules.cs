@@ -1,7 +1,6 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
 using WpfExplorer.Support.Local.Helpers;
-using WpfExplorer.Support.Local.Models;
 
 namespace WpfExplorer.Properties
 {

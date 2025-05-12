@@ -8,12 +8,15 @@ namespace WpfExplorer.Support.Local.Helpers
 {
     public class FileService
     {
+        private readonly ColorManager _colorManager;
         private readonly DirectoryManager _directoryManager;
         private readonly NavigatorService _navigatorService;
-
-        public FileService(DirectoryManager directoryManager)
+        
+        public FileService(ColorMnanger colorMnanger, DirectoryManager directoryManager, NavigatorService navigatorService)
         {
+            _colorManager = colorMnanger;
             _directoryManager = directoryManager;
+            _navigatorService = navigatorService;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
         }
 
         public List<FolderInfo> GenerateRootNodes()
@@ -89,5 +92,86 @@ namespace WpfExplorer.Support.Local.Helpers
 
             return children;
         }
+
+        public void TryRefreshFiles(ObservableCollection<FolderInfo> files, out bool isAccessDenied)
+        {
+            var path = _navigatorService.Current.FullPath;
+            isAccessDenied = !Directory.Exists(path) || !IsAccessible(path);
+
+            if (!isAccessDenied)
+            {
+                files.Clear();
+                files.AddRange(FetchFilesAndDirectories(path));
+            }
+        }
+
+        private static bool IsAccessible(string path)
+        {
+            try
+            {
+                Directory.GetDirectories(path);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private static List<FolderInfo> FetchFilesAndDirectories(string path)
+        {
+            return Directory.GetFileSystemEntries(path)
+                .Select(entry => new FolderInfo
+                {
+                    Name = Path.GetFileName(entry),
+                    IconType = Directory.Exists(entry) ? IconType.Folder : DetermineIconType(entry),
+                    FullPath = entry,
+                    Length = Directory.Exists(entry) ? 0 : new FileInfo(entry).Length
+                })
+                .OrderBy(info => info.IconType == IconType.Folder ? 0 : 1)
+                .ToList();
+        }
+
+        private static IconType DetermineIconType(string file)
+        {
+            var ext = Path.GetExtension(file).ToUpper();
+            return ext switch
+            {
+                ".JPG" or "JPEG" or ".PNG" or ".GIF" or ".BMP" => IconType.FileImage,
+                ".PDF" => IconType.FilePdf,
+                ".ZIP" => IconType.FileZip,
+                ".EXE" => IconType.FileCheck,
+                ".DOCX" or ".DOC" => IconType.FileWord,
+                _ => IconType.File,
+            };
+        }
+
+        public void RefreshLocations(ObservableCollection<LocationInfo> locations)
+        {
+            List<LocationInfo> source = GenerateLocationInfo(_navigatorService.Current.FullPath);
+            locations.Clear();
+            locations.AddRange(source);
+        }
+
+        public List<LocationInfo> GenerateLocationInfo(string path)
+        {
+            List<LocationInfo> locations = new();
+            while (!string.IsNullOrEmpty(path))
+            {
+                string name = Path.GetFileName(path);
+                name = name == "" ? path : name;
+                locations.Insert(0, new LocationInfo(name, path));
+                path = Path.GetDirectoryName(path);
+            }
+
+            int zindex = 1000;
+            int cnt = 0;
+            locations.ForEach(loc => loc.Color = _colorManager.PolygonColors[cnt++]);
+            locations.First().IsRoot = true;
+            locations.ForEach(loc => loc.Zindex = zindex--);
+
+            return locations;
+        }
     }
+
 }

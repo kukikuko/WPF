@@ -27,28 +27,7 @@ namespace WpfExplorer.Main.Local.ViewModels
 
         private void _navigatorService_LocationChanged(object? sender, LocationChangedEventArgs e)
         {
-            List<FolderInfo> source = GetDirectoryItems(e.Current.FullPath);
-
-            Files.Clear();
-            Files.AddRange(source);
-        }
-
-        private List<FolderInfo> GetDirectoryItems(string fullPath)
-        {
-            List<FolderInfo> items = new();
-
-            string[] dirs = Directory.GetDirectories(fullPath);
-            foreach (string path in dirs)
-            {
-                items.Add(new FolderInfo { FullPath = path });
-            }
-
-            string[] files = Directory.GetFiles(fullPath);
-            foreach (string path in files)
-            {
-                items.Add(new FolderInfo { FullPath = path });
-            }
-            return items;
+            _fileService.TryRefreshFiles(Files, out bool ineDenied);
         }
 
         [RelayCommand]
