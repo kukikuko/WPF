@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-using System.Xml.Serialization;
-using Jamesnet.Wpf.Controls;
+﻿using Jamesnet.Wpf.Controls;
 using Jamesnet.Wpf.Mvvm;
 using Prism.Ioc;
 using Prism.Regions;
