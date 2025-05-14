@@ -26,6 +26,8 @@
                                     <units:LocatorButton ActionType="Redo" Command="{Binding RedoCommand}"/>
                                 </StackPanel>
                             </Border>
+                            <units:LocatorTextBox Text="{Binding Current.FullPath, Mode=OneWay}"
+                                                  Margin="0 0 6 0"/>
                         </james:JamesGrid>
                     </Border>
                 </ControlTemplate>
