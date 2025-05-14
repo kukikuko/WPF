@@ -15,12 +15,12 @@ using System.Windows.Shapes;
 
 namespace WpfExplorer.Main.UI.Units
 {
-    public class FilelistBox : ListBox
+    public class FileListBox : ListBox
     {
-        static FilelistBox()
+        static FileListBox()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(FilelistBox), 
-                new FrameworkPropertyMetadata(typeof(FilelistBox)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(FileListBox), 
+                new FrameworkPropertyMetadata(typeof(FileListBox)));
         }
 
         protected override DependencyObject GetContainerForItemOverride()

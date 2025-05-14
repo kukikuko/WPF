@@ -15,7 +15,7 @@
                             <units:PolygonSelector Grid.ColumnSpan="2" ItemsSource="{Binding Locations}"/>
                             <units:FolderTreeView ItemsSource="{Binding Roots}"
                                                   SelectionCommand="{Binding FolderChangedCommand}"/>
-                            <units:FilelistBox ItemsSource="{Binding Files}"/>
+                            <units:FileListBox ItemsSource="{Binding Files}"/>
                         </james:JamesGrid>
                     </Border>
                 </ControlTemplate>

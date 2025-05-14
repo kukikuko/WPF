@@ -1,7 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using Jamesnet.Wpf.Controls;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
-using Jamesnet.Wpf.Controls;
 using System.IO;
+using System.Linq;
 using WpfExplorer.Support.Local.Models;
 
 namespace WpfExplorer.Support.Local.Helpers
@@ -11,12 +14,12 @@ namespace WpfExplorer.Support.Local.Helpers
         private readonly ColorManager _colorManager;
         private readonly DirectoryManager _directoryManager;
         private readonly NavigatorService _navigatorService;
-        
-        public FileService(ColorMnanger colorMnanger, DirectoryManager directoryManager, NavigatorService navigatorService)
+
+        public FileService(ColorManager colorManager, DirectoryManager directoryManager, NavigatorService navigator)
         {
-            _colorManager = colorMnanger;
+            _colorManager = colorManager;
             _directoryManager = directoryManager;
-            _navigatorService = navigatorService;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+            _navigatorService = navigator;
         }
 
         public List<FolderInfo> GenerateRootNodes()
@@ -30,14 +33,15 @@ namespace WpfExplorer.Support.Local.Helpers
 
             foreach (DriveInfo drive in DriveInfo.GetDrives())
             {
-                var name = $"{drive.VolumeLabel} ({drive.RootDirectory.FullName.Replace("\\", "")}";
+                var name = $"{drive.VolumeLabel} ({drive.RootDirectory.FullName.Replace("\\", "")})";
                 roots.Add(CreateFolderInfo(1, name, IconType.MicrosoftWindows, drive.Name));
             }
 
             return roots;
         }
 
-        private FolderInfo CreateFolderInfo(int depth, string name, IconType iconType, string fullPath)
+        private static FolderInfo CreateFolderInfo
+            (int depth, string name, IconType iconType, string fullPath)
         {
             return new FolderInfo
             {
@@ -69,7 +73,6 @@ namespace WpfExplorer.Support.Local.Helpers
         private static List<FolderInfo> FetchSubdirectories(FolderInfo parent)
         {
             var children = new List<FolderInfo>();
-
             try
             {
                 var subDirs = Directory.GetDirectories(parent.FullPath);
@@ -89,7 +92,6 @@ namespace WpfExplorer.Support.Local.Helpers
             {
                 Debug.WriteLine(ex.Message);
             }
-
             return children;
         }
 
@@ -118,7 +120,7 @@ namespace WpfExplorer.Support.Local.Helpers
             }
         }
 
-        private static List<FolderInfo> FetchFilesAndDirectories(string path)
+        public static List<FolderInfo> FetchFilesAndDirectories(string path)
         {
             return Directory.GetFileSystemEntries(path)
                 .Select(entry => new FolderInfo
@@ -137,7 +139,7 @@ namespace WpfExplorer.Support.Local.Helpers
             var ext = Path.GetExtension(file).ToUpper();
             return ext switch
             {
-                ".JPG" or "JPEG" or ".PNG" or ".GIF" or ".BMP" => IconType.FileImage,
+                ".JPG" or ".JPEG" or ".GIF" or ".BMP" or ".PNG" => IconType.FileImage,
                 ".PDF" => IconType.FilePdf,
                 ".ZIP" => IconType.FileZip,
                 ".EXE" => IconType.FileCheck,
@@ -173,5 +175,4 @@ namespace WpfExplorer.Support.Local.Helpers
             return locations;
         }
     }
-
 }

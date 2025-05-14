@@ -8,6 +8,7 @@ namespace WpfExplorer.Properties
     {
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterSingleton<ColorManager>();
             containerRegistry.RegisterSingleton<DirectoryManager>();
             containerRegistry.RegisterSingleton<FileService>();
             containerRegistry.RegisterSingleton<NavigatorService>();

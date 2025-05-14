@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Jamesnet.Wpf.Mvvm;
 using System.Collections.ObjectModel;
-using System.IO;
 using WpfExplorer.Support.Local.Helpers;
 using WpfExplorer.Support.Local.Models;
 
@@ -14,6 +13,7 @@ namespace WpfExplorer.Main.Local.ViewModels
 
         public List<FolderInfo> Roots { get; init; }
         public ObservableCollection<FolderInfo> Files { get; init; }
+        public ObservableCollection<LocationInfo> Locations { get; init; }
 
         public MainContentViewModel(FileService fileService, NavigatorService navigatorService)
         {
@@ -23,11 +23,13 @@ namespace WpfExplorer.Main.Local.ViewModels
 
             Roots = _fileService.GenerateRootNodes();
             Files = new();
+            Locations = new();
         }
 
         private void _navigatorService_LocationChanged(object? sender, LocationChangedEventArgs e)
         {
-            _fileService.TryRefreshFiles(Files, out bool ineDenied);
+            _fileService.TryRefreshFiles(Files, out bool isDenied);
+            _fileService.RefreshLocations(Locations);
         }
 
         [RelayCommand]
