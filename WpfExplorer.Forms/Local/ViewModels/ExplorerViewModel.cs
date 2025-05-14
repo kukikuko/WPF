@@ -1,4 +1,6 @@
-﻿using Jamesnet.Wpf.Controls;
+﻿using System.Security.Cryptography;
+using System.Xml.Serialization;
+using Jamesnet.Wpf.Controls;
 using Jamesnet.Wpf.Mvvm;
 using Prism.Ioc;
 using Prism.Regions;
@@ -19,16 +21,22 @@ namespace WpfExplorer.Forms.Local.ViewModels
             _regionManager = regionManager;
         }
 
+
         public void OnLoaded(IViewable view)
         {
-            IRegion mainRegion = _regionManager.Regions["MainRegion"];
-            IViewable mainContent = _containerProvider.Resolve<IViewable>("MainContent");
+            ImportContext("MainContent", "MainRegion");
+            ImportContext("LocationContent", "LocationRegion");
+        }
 
-            if(!mainRegion.Views.Contains(mainContent))
+        private void ImportContext(string name, string regionName)
+        {
+            IViewable content = _containerProvider.Resolve<IViewable>(name);
+            IRegion region = _regionManager.Regions[regionName];
+            if (!region.Views.Contains(content))
             {
-                mainRegion.Add(mainContent);
+                region.Add(content);
             }
-            mainRegion.Activate(mainContent);
+            region.Activate(content);
         }
     }
 }
