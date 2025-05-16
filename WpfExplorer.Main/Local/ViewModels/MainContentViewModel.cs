@@ -1,12 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Jamesnet.Wpf.Mvvm;
 using System.Collections.ObjectModel;
+using Jamesnet.Wpf.Controls;
 using WpfExplorer.Support.Local.Helpers;
 using WpfExplorer.Support.Local.Models;
 
 namespace WpfExplorer.Main.Local.ViewModels
 {
-    public partial class MainContentViewModel : ObservableBase
+    public partial class MainContentViewModel : ObservableBase, IViewLoadable
     {
         private readonly FileService _fileService;
         private readonly NavigatorService _navigatorService;
@@ -29,6 +30,7 @@ namespace WpfExplorer.Main.Local.ViewModels
         private void _navigatorService_LocationChanged(object? sender, LocationChangedEventArgs e)
         {
             _fileService.TryRefreshFiles(Files, out bool isDenied);
+            e.Current.IsDenied = isDenied;
             _fileService.RefreshLocations(Locations);
         }
 
@@ -55,6 +57,11 @@ namespace WpfExplorer.Main.Local.ViewModels
         private void GoToParent()
         {
             _navigatorService.GoToParent();
+        }
+
+        public void OnLoaded(IViewable view)
+        {
+            Roots[0].IsFolderSelected = true;
         }
     }
 }

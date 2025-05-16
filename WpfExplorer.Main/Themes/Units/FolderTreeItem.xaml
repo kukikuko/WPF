@@ -55,6 +55,9 @@
                             <Setter TargetName="icon" Property="Opacity" Value="0.3"/>
                             <Setter TargetName="text" Property="Opacity" Value="0.3"/>
                         </DataTrigger>
+                        <DataTrigger Binding="{Binding Children.Count}" Value="0">
+                            <Setter TargetName="expand" Property="Visibility" Value="Hidden"/>
+                        </DataTrigger>
                         <Trigger Property="IsExpanded" Value="True">
                             <Setter Property="Visibility" TargetName="items" Value="Visible"/>
                         </Trigger>
