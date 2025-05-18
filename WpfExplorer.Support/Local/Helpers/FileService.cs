@@ -1,10 +1,7 @@
 ﻿using Jamesnet.Wpf.Controls;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using WpfExplorer.Support.Local.Models;
 
 namespace WpfExplorer.Support.Local.Helpers

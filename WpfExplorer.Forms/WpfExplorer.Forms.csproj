@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Themes\Units\**" />
+    <EmbeddedResource Remove="Themes\Units\**" />
+    <None Remove="Themes\Units\**" />
+    <Page Remove="Themes\Units\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Jamesnet.Wpf" Version="1.0.0.113" />
   </ItemGroup>
 
@@ -16,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Themes\Units\" />
     <Folder Include="UI\Units\" />
   </ItemGroup>
 
